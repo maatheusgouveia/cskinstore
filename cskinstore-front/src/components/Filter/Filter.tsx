@@ -8,14 +8,13 @@ export function Filter() {
 		<div>
 			<Grid templateColumns="1fr 1fr 1fr auto auto" gap={6}>
 				<GridItem w="100%" h="10">
-					<Select
-						placeholder="Selecione a categoria"
-						bgColor="#393939"
-						color="#fff"
-						borderColor="#555"
-					>
+					<Select placeholder="Selecione a categoria">
 						{categories.map((category) => (
-							<option key={category} value={category}>
+							<option
+								key={category}
+								value={category}
+								style={{ backgroundColor: "#393939" }}
+							>
 								{category}
 							</option>
 						))}
@@ -23,25 +22,30 @@ export function Filter() {
 				</GridItem>
 
 				<GridItem w="100%" h="10">
-					<Select
-						placeholder="Select option"
-						bgColor="#393939"
-						color="#fff"
-						borderColor="#555"
-					>
-						<option value="option1">Option 1</option>
-						<option value="option2">Option 2</option>
-						<option value="option3">Option 3</option>
+					<Select placeholder="Select option">
+						<option
+							value="option1"
+							style={{ backgroundColor: "#393939" }}
+						>
+							Option 1
+						</option>
+						<option
+							value="option2"
+							style={{ backgroundColor: "#393939" }}
+						>
+							Option 2
+						</option>
+						<option
+							value="option3"
+							style={{ backgroundColor: "#393939" }}
+						>
+							Option 3
+						</option>
 					</Select>
 				</GridItem>
 
 				<GridItem w="100%" h="10">
-					<Input
-						placeholder="Encontre as skins que você procura"
-						bgColor="#393939"
-						color="#fff"
-						borderColor="#555"
-					/>
+					<Input placeholder="Encontre as skins que você procura" />
 				</GridItem>
 
 				<GridItem h="10">
