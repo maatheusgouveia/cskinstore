@@ -1,5 +1,5 @@
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
-import { Button, Grid, GridItem, Input, Select } from "@chakra-ui/react";
+import { Button, Grid, GridItem, Input, Select, Flex } from "@chakra-ui/react";
 
 const categories = ["Electronics", "Clothing", "Books", "Home", "Toys"];
 
@@ -22,26 +22,11 @@ export function Filter() {
 				</GridItem>
 
 				<GridItem w="100%" h="10">
-					<Select placeholder="Select option">
-						<option
-							value="option1"
-							style={{ backgroundColor: "#393939" }}
-						>
-							Option 1
-						</option>
-						<option
-							value="option2"
-							style={{ backgroundColor: "#393939" }}
-						>
-							Option 2
-						</option>
-						<option
-							value="option3"
-							style={{ backgroundColor: "#393939" }}
-						>
-							Option 3
-						</option>
-					</Select>
+					<Flex gap={4} alignItems="center">
+						<Input placeholder="Digite o valor mínimo" />
+						-
+						<Input placeholder="Digite o valor máximo" />
+					</Flex>
 				</GridItem>
 
 				<GridItem w="100%" h="10">
