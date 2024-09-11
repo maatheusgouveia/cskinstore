@@ -35,7 +35,6 @@ export function Filter({ isLoading, onSubmit }: FilterProps) {
 
 	function handleSubmit(values: typeof initialValues) {
 		onSubmit(values);
-		console.log(values);
 	}
 
 	return (

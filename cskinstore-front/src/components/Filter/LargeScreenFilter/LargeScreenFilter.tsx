@@ -1,8 +1,16 @@
 "use client";
 
-import { FaArrowRightArrowLeft } from "react-icons/fa6";
-import { Field, ErrorMessage } from "formik";
-import { Button, Grid, GridItem, Input, Select, Flex } from "@chakra-ui/react";
+import { Field, ErrorMessage, useFormikContext } from "formik";
+import {
+	Button,
+	Grid,
+	GridItem,
+	Input,
+	Select,
+	Flex,
+	Tooltip,
+} from "@chakra-ui/react";
+
 import { categories } from "@/constants/categories";
 
 const initialValues = {
@@ -18,6 +26,13 @@ interface FilterProps {
 }
 
 export function LargeScreenFilter({ isLoading }: FilterProps) {
+	const { resetForm, submitForm } = useFormikContext<typeof initialValues>();
+
+	function handleResetForm() {
+		resetForm();
+		submitForm();
+	}
+
 	return (
 		<Grid templateColumns="1fr 1fr 1fr auto auto" gap={6}>
 			<GridItem w="100%" h="10">
@@ -79,16 +94,15 @@ export function LargeScreenFilter({ isLoading }: FilterProps) {
 			</GridItem>
 
 			<GridItem h="10">
-				<Button
-					type="button"
-					bgColor="transparent"
-					textColor="#FE8400"
-					fontWeight="bold"
-				>
-					<FaArrowRightArrowLeft
-						style={{ transform: "rotate(90deg)" }}
-					/>
-				</Button>
+				<Tooltip label="Limpar filtros">
+					<Button
+						variant="ghost"
+						onClick={handleResetForm}
+						textColor="#FE8400"
+					>
+						x
+					</Button>
+				</Tooltip>
 			</GridItem>
 		</Grid>
 	);

@@ -14,6 +14,7 @@ import {
 	ModalBody,
 	ModalFooter,
 	useDisclosure,
+	Tooltip,
 } from "@chakra-ui/react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import { FaFilter } from "react-icons/fa6";
@@ -60,21 +61,26 @@ export function MobileFilter({
 					name="searchTerm"
 					placeholder="Encontre as skins que você procura"
 				/>
-				<Button
-					onClick={onOpen}
-					bgColor="#FE8400"
-					textColor="#fff"
-					fontWeight="bold"
-				>
-					<FaFilter />
-				</Button>
-				<Button
-					variant="ghost"
-					onClick={handleResetForm}
-					textColor="#FE8400"
-				>
-					x
-				</Button>
+				<Tooltip label="Filtrar">
+					<Button
+						onClick={onOpen}
+						bgColor="#FE8400"
+						textColor="#fff"
+						fontWeight="bold"
+					>
+						<FaFilter />
+					</Button>
+				</Tooltip>
+
+				<Tooltip label="Limpar filtros">
+					<Button
+						variant="ghost"
+						onClick={handleResetForm}
+						textColor="#FE8400"
+					>
+						x
+					</Button>
+				</Tooltip>
 			</Flex>
 
 			<Modal isOpen={isOpen} onClose={onClose} size="full">
