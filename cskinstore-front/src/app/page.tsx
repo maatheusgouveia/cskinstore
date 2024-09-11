@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 import { Skin } from "@/interfaces/skin";
 import { Card } from "@/components/Card";
@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/services/api";
 import { QueryTags } from "@/constants/querytags";
 import { useState } from "react";
+import { CardsSkeleton } from "@/components/CardsSkeleton";
 
 interface Filters {
 	category: string;
@@ -52,6 +53,14 @@ export default function Home() {
 					{data?.map((item) => (
 						<Card key={item.id} data={item} />
 					))}
+
+					{data && data?.length < 1 && !isLoading && (
+						<Flex w="100%" justifyContent="center" mt="24">
+							<Text>Nenhum item encontrado</Text>
+						</Flex>
+					)}
+
+					{isLoading && <CardsSkeleton />}
 				</Flex>
 			</Flex>
 		</main>

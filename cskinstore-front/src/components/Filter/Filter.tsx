@@ -6,7 +6,6 @@ import { useBreakpointValue } from "@chakra-ui/react";
 import { MobileFilter } from "./MobileFilter/MobileFilter";
 import { LargeScreenFilter } from "./LargeScreenFilter/LargeScreenFilter";
 
-// Esquema de validação com Yup
 const validationSchema = Yup.object({
 	category: Yup.string(),
 	minPrice: Yup.number().min(0, "Valor mínimo deve ser maior ou igual a 0"),
@@ -36,6 +35,7 @@ export function Filter({ isLoading, onSubmit }: FilterProps) {
 
 	function handleSubmit(values: typeof initialValues) {
 		onSubmit(values);
+		console.log(values);
 	}
 
 	return (
@@ -48,8 +48,9 @@ export function Filter({ isLoading, onSubmit }: FilterProps) {
 				<Form>
 					{isMobile ? (
 						<MobileFilter
-							isLoading={isLoading}
 							onSubmit={onSubmit}
+							isLoading={isLoading}
+							initialValues={initialValues}
 						/>
 					) : (
 						<LargeScreenFilter

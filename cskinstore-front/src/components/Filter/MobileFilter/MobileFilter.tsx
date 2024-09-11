@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
 	Button,
 	Grid,
@@ -21,28 +20,36 @@ import { FaFilter } from "react-icons/fa6";
 
 import { categories } from "@/constants/categories";
 
-const initialValues = {
-	category: "",
-	minPrice: "",
-	maxPrice: "",
-	searchTerm: "",
-};
+interface FormValues {
+	category: string;
+	minPrice: string;
+	maxPrice: string;
+	searchTerm: string;
+}
 
 interface FilterProps {
 	isLoading: boolean;
-	onSubmit: (values: typeof initialValues) => void;
+	onSubmit: (values: FormValues) => void;
+	initialValues: FormValues;
 }
 
-export function MobileFilter({ isLoading, onSubmit }: FilterProps) {
-	const { resetForm } = useFormikContext();
+export function MobileFilter({
+	isLoading,
+	onSubmit,
+	initialValues,
+}: FilterProps) {
+	const { resetForm, values } = useFormikContext<FormValues>();
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [formValues, setFormValues] = useState(initialValues);
 
-	function handleSubmit(values: typeof initialValues) {
-		setFormValues(values);
+	function handleSubmit() {
 		onSubmit(values);
 		onClose();
+	}
+
+	function handleResetForm() {
+		resetForm();
+		onSubmit(initialValues);
 	}
 
 	return (
@@ -63,9 +70,7 @@ export function MobileFilter({ isLoading, onSubmit }: FilterProps) {
 				</Button>
 				<Button
 					variant="ghost"
-					onClick={() => {
-						resetForm();
-					}}
+					onClick={handleResetForm}
 					textColor="#FE8400"
 				>
 					x
@@ -150,7 +155,7 @@ export function MobileFilter({ isLoading, onSubmit }: FilterProps) {
 							textColor="#fff"
 							fontWeight="bold"
 							type="submit"
-							onClick={() => handleSubmit(formValues)}
+							onClick={() => handleSubmit()}
 							isLoading={isLoading}
 						>
 							Pesquisar

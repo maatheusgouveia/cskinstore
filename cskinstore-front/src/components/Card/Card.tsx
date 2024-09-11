@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
 
 import { Skin } from "@/interfaces/skin";
 
@@ -7,8 +7,6 @@ interface CardProps {
 	data: Skin;
 }
 export function Card({ data }: CardProps) {
-	if (!data.id) return;
-
 	return (
 		<Box
 			key={data.id}
@@ -45,39 +43,35 @@ export function Card({ data }: CardProps) {
 				/>
 			</Box>
 
-			<h3
-				style={{
-					color: "#fff",
-					fontWeight: "bold",
-					marginTop: "10px",
-				}}
+			<Heading
+				as="h3"
+				color="#fff"
+				fontWeight="bold"
+				mt={3}
+				fontSize="lg"
 			>
 				{data.name}
-			</h3>
+			</Heading>
 
-			<p
-				style={{
-					color: "#FE8400",
-					fontWeight: "bold",
-				}}
-			>
+			<Text color="#FE8400" fontWeight="bold">
 				{data.price.toLocaleString("pt-BR", {
 					style: "currency",
 					currency: "BRL",
 				})}
-			</p>
+			</Text>
 
-			<p style={{ color: "#ccc" }}>{data.category}</p>
+			<Text color="#ccc">{data.category}</Text>
 
-			<p style={{ color: "#ccc", fontSize: "12px" }}>
+			<Text color="#ccc" fontSize="sm">
 				Criado em {new Date(data.createdAt).toLocaleDateString("pt-BR")}
-			</p>
-			<p style={{ color: "#ccc", fontSize: "12px" }}>
+			</Text>
+
+			<Text color="#ccc" fontSize="sm">
 				Atualizado em{" "}
 				{new Date(data.updatedAt).toLocaleDateString("pt-BR")}
-			</p>
+			</Text>
 
-			<Button bgColor="#FE8400" textColor="#fff" fontWeight="bold" mt={4}>
+			<Button bgColor="#FE8400" color="#fff" fontWeight="bold" mt={4}>
 				Comprar
 			</Button>
 		</Box>
