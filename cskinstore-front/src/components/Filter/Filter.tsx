@@ -1,9 +1,22 @@
+"use client";
+
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { Button, Grid, GridItem, Input, Select, Flex } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/services/api";
+import { Skin } from "@/interfaces/skin";
+import { QueryTags } from "@/constants/querytags";
 
 const categories = ["Electronics", "Clothing", "Books", "Home", "Toys"];
 
 export function Filter() {
+	const { isLoading, data } = useQuery({
+		queryKey: [QueryTags.ITEMS],
+		queryFn: async () => (await api.get<Skin[]>("items")).data,
+	});
+
+	console.log(data);
+
 	return (
 		<div>
 			<Grid templateColumns="1fr 1fr 1fr auto auto" gap={6}>
@@ -38,6 +51,7 @@ export function Filter() {
 						bgColor="#FE8400"
 						textColor="#fff"
 						fontWeight="bold"
+						isLoading={isLoading}
 					>
 						Pesquisar
 					</Button>
