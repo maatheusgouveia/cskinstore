@@ -1,38 +1,46 @@
+"use client";
 
-import { Box,  Grid,  } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 
 import { Skin } from "@/interfaces/skin";
 import { Card } from "@/components/Card";
 import { Filter } from "@/components/Filter";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/services/api";
+import { QueryTags } from "@/constants/querytags";
+import { useState } from "react";
 
-const categories = ["Electronics", "Clothing", "Books", "Home", "Toys"];
-
-function generateItems(numItems = 10) {
-	const items = [];
-
-	for (let i = 0; i < numItems; i++) {
-		const item = {
-			id: crypto.randomUUID(),
-			name: `Item ${i + 1}`,
-			image: `https://picsum.photos/200/300?random=${i + 1}`,
-			category: categories[i % categories.length],
-			price: +(10 + i * 1.5).toFixed(2),
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		};
-		items.push(item);
-	}
-
-	return items;
+interface Filters {
+	category: string;
+	minPrice: string;
+	maxPrice: string;
+	searchTerm: string;
 }
 
 export default function Home() {
-	const data: Skin[] = generateItems();
+	const [filters, setFilters] = useState({});
+
+	function handleSubmit(data: Filters) {
+		const updatedData = {
+			name: data.searchTerm,
+			priceMin: data.minPrice,
+			priceMax: data.maxPrice,
+			category: data.category,
+		};
+
+		setFilters(updatedData);
+	}
+
+	const { isLoading, data } = useQuery({
+		queryKey: [QueryTags.ITEMS, JSON.stringify(filters)],
+		queryFn: async () =>
+			(await api.get<Skin[]>("items", { params: filters })).data,
+	});
 
 	return (
 		<main>
 			<Box p={8}>
-				<Filter />
+				<Filter isLoading={isLoading} onSubmit={handleSubmit} />
 
 				<section>
 					<Grid
@@ -41,7 +49,7 @@ export default function Home() {
 						justifyItems="center"
 						templateColumns="repeat(auto-fit, minmax(300px, 1fr))"
 					>
-						{data.map((item) => (
+						{data?.map((item) => (
 							<Card key={item.id} data={item} />
 						))}
 					</Grid>

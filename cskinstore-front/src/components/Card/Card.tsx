@@ -7,6 +7,8 @@ interface CardProps {
 	data: Skin;
 }
 export function Card({ data }: CardProps) {
+	if (!data.id) return;
+
 	return (
 		<Box
 			key={data.id}
@@ -68,10 +70,11 @@ export function Card({ data }: CardProps) {
 			<p style={{ color: "#ccc" }}>{data.category}</p>
 
 			<p style={{ color: "#ccc", fontSize: "12px" }}>
-				Criado em {data.createdAt.toLocaleDateString("pt-BR")}
+				Criado em {new Date(data.createdAt).toLocaleDateString("pt-BR")}
 			</p>
 			<p style={{ color: "#ccc", fontSize: "12px" }}>
-				Atualizado em {data.updatedAt.toLocaleDateString("pt-BR")}
+				Atualizado em{" "}
+				{new Date(data.updatedAt).toLocaleDateString("pt-BR")}
 			</p>
 
 			<Button bgColor="#FE8400" textColor="#fff" fontWeight="bold" mt={4}>
