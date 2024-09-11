@@ -8,7 +8,6 @@ export class ItemsService {
   async getAllItems(filters: any = {}) {
     const { name, floatMin, floatMax, priceMin, priceMax, category } = filters;
 
-    // Verifica se há algum filtro ativo
     const hasFilters =
       name || floatMin || floatMax || priceMin || priceMax || category;
 
@@ -16,7 +15,6 @@ export class ItemsService {
       return this.prisma.item.findMany();
     }
 
-    // Caso contrário, aplique os filtros
     return this.prisma.item.findMany({
       where: {
         AND: [

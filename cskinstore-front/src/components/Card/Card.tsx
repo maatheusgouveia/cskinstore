@@ -23,7 +23,7 @@ export function Card({ data }: CardProps) {
 			}}
 			p={4}
 			textAlign="center"
-			maxW="300px"
+			maxW={{ base: "100%", md: "270px" }}
 			mb={4}
 		>
 			<Box

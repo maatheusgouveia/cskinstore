@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Grid } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import { Skin } from "@/interfaces/skin";
 import { Card } from "@/components/Card";
@@ -39,22 +39,21 @@ export default function Home() {
 
 	return (
 		<main>
-			<Box p={8}>
+			<Flex p={8} w="100%" direction="column" justifyContent="center">
 				<Filter isLoading={isLoading} onSubmit={handleSubmit} />
 
-				<section>
-					<Grid
-						py={8}
-						gap={8}
-						justifyItems="center"
-						templateColumns="repeat(auto-fit, minmax(300px, 1fr))"
-					>
-						{data?.map((item) => (
-							<Card key={item.id} data={item} />
-						))}
-					</Grid>
-				</section>
-			</Box>
+				<Flex
+					py={6}
+					gap={6}
+					alignItems="center"
+					justifyContent={{ base: "center", md: "start" }}
+					wrap="wrap"
+				>
+					{data?.map((item) => (
+						<Card key={item.id} data={item} />
+					))}
+				</Flex>
+			</Flex>
 		</main>
 	);
 }
