@@ -1,11 +1,10 @@
 "use client";
 
 import * as Yup from "yup";
-import { FaArrowRightArrowLeft } from "react-icons/fa6";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { Button, Grid, GridItem, Input, Select, Flex } from "@chakra-ui/react";
-
-const categories = ["Pistol", "Rifle", "Knife", "Sniper"];
+import { Formik, Form } from "formik";
+import { useBreakpointValue } from "@chakra-ui/react";
+import { MobileFilter } from "./MobileFilter/MobileFilter";
+import { LargeScreenFilter } from "./LargeScreenFilter/LargeScreenFilter";
 
 // Esquema de validação com Yup
 const validationSchema = Yup.object({
@@ -33,6 +32,8 @@ interface FilterProps {
 }
 
 export function Filter({ isLoading, onSubmit }: FilterProps) {
+	const isMobile = useBreakpointValue({ base: true, md: false });
+
 	function handleSubmit(values: typeof initialValues) {
 		onSubmit(values);
 	}
@@ -45,78 +46,17 @@ export function Filter({ isLoading, onSubmit }: FilterProps) {
 		>
 			{() => (
 				<Form>
-					<Grid templateColumns="1fr 1fr 1fr auto auto" gap={6}>
-						<GridItem w="100%" h="10">
-							<Field
-								as={Select}
-								name="category"
-								placeholder="Selecione a categoria"
-							>
-								{categories.map((category) => (
-									<option
-										key={category}
-										value={category}
-										style={{ backgroundColor: "#393939" }}
-									>
-										{category}
-									</option>
-								))}
-							</Field>
-							<ErrorMessage name="category" component="div" />
-						</GridItem>
-
-						<GridItem w="100%" h="10">
-							<Flex gap={4} alignItems="center">
-								<Field
-									as={Input}
-									name="minPrice"
-									placeholder="Digite o valor mínimo"
-								/>
-								-
-								<Field
-									as={Input}
-									name="maxPrice"
-									placeholder="Digite o valor máximo"
-								/>
-							</Flex>
-							<ErrorMessage name="minPrice" component="div" />
-							<ErrorMessage name="maxPrice" component="div" />
-						</GridItem>
-
-						<GridItem w="100%" h="10">
-							<Field
-								as={Input}
-								name="searchTerm"
-								placeholder="Encontre as skins que você procura"
-							/>
-							<ErrorMessage name="searchTerm" component="div" />
-						</GridItem>
-
-						<GridItem h="10">
-							<Button
-								bgColor="#FE8400"
-								textColor="#fff"
-								fontWeight="bold"
-								type="submit"
-								isLoading={isLoading}
-							>
-								Pesquisar
-							</Button>
-						</GridItem>
-
-						<GridItem h="10">
-							<Button
-								type="button"
-								bgColor="transparent"
-								textColor="#FE8400"
-								fontWeight="bold"
-							>
-								<FaArrowRightArrowLeft
-									style={{ transform: "rotate(90deg)" }}
-								/>
-							</Button>
-						</GridItem>
-					</Grid>
+					{isMobile ? (
+						<MobileFilter
+							isLoading={isLoading}
+							onSubmit={onSubmit}
+						/>
+					) : (
+						<LargeScreenFilter
+							isLoading={isLoading}
+							onSubmit={onSubmit}
+						/>
+					)}
 				</Form>
 			)}
 		</Formik>
