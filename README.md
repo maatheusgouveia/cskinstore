@@ -65,3 +65,30 @@ cd cskinstore-backend
 ### Back-end
 
 `DATABASE_URL: String de conexão do MongoDB.`
+
+# Endpoints
+
+### GET: `/items`
+
+### Response:
+
+    [
+        {
+            "id": "1",
+            "name": "AK-47 | Redline",
+            "category": "Rifle",
+            "price": 350,
+            "image": "url-da-imagem",
+            "createdAt": "2023-01-01T12:00:00.000Z",
+            "updatedAt": "2023-08-01T12:00:00.000Z"
+        },
+        {
+            "id": "2",
+            "name": "AWP | Asiimov",
+            "category": "Sniper",
+            "price": 850,
+            "image": "url-da-imagem",
+            "createdAt": "2023-01-01T12:00:00.000Z",
+            "updatedAt": "2023-08-01T12:00:00.000Z"
+        }
+    ]
