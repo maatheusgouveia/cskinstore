@@ -33,6 +33,7 @@ Certifique-se de ter os seguintes programas instalados:
 - **React**
 - **Chakra UI**
 - **React Query** (TanStack Query)
+- **Sharp** (Images optmization)
 
 ### Back-end:
 
@@ -92,3 +93,17 @@ cd cskinstore-backend
             "updatedAt": "2023-08-01T12:00:00.000Z"
         }
     ]
+
+# Rodando o frontend
+
+Dentro da pasta cskinstore-frontend `npm run dev`
+
+## Populando o banco de dados
+
+Dentro da pasta cskinstore-backend `npm run seed`
+
+Isso irá gerar 10 registros de itens e então você estará pronto para rodar o backend
+
+# Rodando o backend
+
+Dentro da pasta cskinstore-backend `npm run start:dev`
