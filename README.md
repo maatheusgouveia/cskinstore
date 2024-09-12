@@ -4,14 +4,14 @@ Este é um projeto full stack que lista e filtra skins de CS:GO. O front-end foi
 
 ## Índice
 
--   [Requisitos](#requisitos)
--   [Tecnologias](#tecnologias)
--   [Instalação](#instalação)
--   [Execução](#execução)
-    -   [Front-end](#executando-o-front-end)
-    -   [Back-end](#executando-o-back-end)
--   [Variáveis de Ambiente](#variáveis-de-ambiente)
--   [Estrutura do Projeto](#estrutura-do-projeto)
+- [Requisitos](#requisitos)
+- [Tecnologias](#tecnologias)
+- [Instalação](#instalação)
+- [Execução](#execução)
+  - [Front-end](#executando-o-front-end)
+  - [Back-end](#executando-o-back-end)
+- [Variáveis de Ambiente](#variáveis-de-ambiente)
+- [Estrutura do Projeto](#estrutura-do-projeto)
 
 ---
 
@@ -19,9 +19,9 @@ Este é um projeto full stack que lista e filtra skins de CS:GO. O front-end foi
 
 Certifique-se de ter os seguintes programas instalados:
 
--   **Node.js** (versão 16 ou superior)
--   **npm** ou **yarn**
--   **MongoDB** (local ou na nuvem, como Atlas)
+- **Node.js** (versão 16 ou superior)
+- **npm** ou **yarn**
+- **MongoDB** (local ou na nuvem, como Atlas)
 
 ---
 
@@ -29,16 +29,16 @@ Certifique-se de ter os seguintes programas instalados:
 
 ### Front-end:
 
--   **Next.js** 14
--   **React**
--   **Chakra UI**
--   **React Query** (TanStack Query)
+- **Next.js** 14
+- **React**
+- **Chakra UI**
+- **React Query** (TanStack Query)
 
 ### Back-end:
 
--   **Nest.js**
--   **Prisma** (ORM para o banco de dados MongoDB)
--   **MongoDB** (Banco de dados NoSQL)
+- **Nest.js**
+- **Prisma** (ORM para o banco de dados MongoDB)
+- **MongoDB** (Banco de dados NoSQL)
 
 ---
 
@@ -60,11 +60,11 @@ cd cskinstore-backend
 
 ### Front-end
 
-`NEXT_PUBLIC_API_URL: URL da API back-end.`
+`NEXT_PUBLIC_API_URL=http://localhost:3000`
 
 ### Back-end
 
-`DATABASE_URL: String de conexão do MongoDB.`
+`DATABASE_URL= String de conexão do MongoDB.`
 
 # Endpoints
 
