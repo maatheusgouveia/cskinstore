@@ -6,12 +6,13 @@ export class ItemsService {
   constructor(private prisma: PrismaService) {}
 
   async getAllItems(filters: any = {}) {
-    const { name, floatMin, floatMax, priceMin, priceMax, category } = filters;
+    const { name, floatMin, floatMax, priceMin, priceMax, category, orderBy } =
+      filters;
 
     const hasFilters =
       name || floatMin || floatMax || priceMin || priceMax || category;
 
-    if (!hasFilters) {
+    if (!hasFilters && !orderBy) {
       return this.prisma.item.findMany();
     }
 
@@ -28,6 +29,7 @@ export class ItemsService {
             : {},
         ],
       },
+      orderBy: { price: orderBy },
     });
   }
 }

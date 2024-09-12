@@ -1,5 +1,4 @@
 import { Controller, Get, Query } from '@nestjs/common';
-
 import { ItemsService } from './items.service';
 
 @Controller('items')
@@ -14,8 +13,17 @@ export class ItemsController {
     @Query('priceMin') priceMin: string,
     @Query('priceMax') priceMax: string,
     @Query('category') category: string,
+    @Query('orderBy') orderBy: string,
   ) {
-    const filters = { name, floatMin, floatMax, priceMin, priceMax, category };
+    const filters = {
+      name,
+      floatMin,
+      floatMax,
+      priceMin,
+      priceMax,
+      category,
+      orderBy,
+    };
 
     return this.itemsService.getAllItems(filters);
   }
