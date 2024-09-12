@@ -16,6 +16,7 @@ interface Filters {
 	minPrice: string;
 	maxPrice: string;
 	searchTerm: string;
+	orderBy: string;
 }
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
 			priceMin: data.minPrice,
 			priceMax: data.maxPrice,
 			category: data.category,
+			orderBy: data.orderBy,
 		};
 
 		setFilters(updatedData);

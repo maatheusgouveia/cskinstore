@@ -26,6 +26,7 @@ interface FormValues {
 	minPrice: string;
 	maxPrice: string;
 	searchTerm: string;
+	orderBy: "asc" | "desc";
 }
 
 interface FilterProps {

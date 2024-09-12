@@ -12,24 +12,37 @@ import {
 } from "@chakra-ui/react";
 
 import { categories } from "@/constants/categories";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa6";
 
-const initialValues = {
-	category: "",
-	minPrice: "",
-	maxPrice: "",
-	searchTerm: "",
-};
+interface FormValues {
+	category: string;
+	minPrice: string;
+	maxPrice: string;
+	searchTerm: string;
+	orderBy: "asc" | "desc";
+}
 
 interface FilterProps {
 	isLoading: boolean;
-	onSubmit: (values: typeof initialValues) => void;
+	onSubmit: (values: FormValues) => void;
+	initialValues?: FormValues;
 }
 
 export function LargeScreenFilter({ isLoading }: FilterProps) {
-	const { resetForm, submitForm } = useFormikContext<typeof initialValues>();
+	const { resetForm, submitForm, values, setFieldValue } =
+		useFormikContext<FormValues>();
 
 	function handleResetForm() {
 		resetForm();
+		submitForm();
+	}
+
+	async function handleOrder() {
+		await setFieldValue(
+			"orderBy",
+			values.orderBy === "asc" ? "desc" : "asc"
+		);
+
 		submitForm();
 	}
 
@@ -100,7 +113,27 @@ export function LargeScreenFilter({ isLoading }: FilterProps) {
 						onClick={handleResetForm}
 						textColor="#FE8400"
 					>
-						x
+						X
+					</Button>
+				</Tooltip>
+
+				<Tooltip
+					label={
+						values.orderBy === "asc"
+							? "Menor para o maior preço"
+							: "Maior para o menor preço"
+					}
+				>
+					<Button
+						variant="ghost"
+						onClick={handleOrder}
+						textColor="#FE8400"
+					>
+						{values.orderBy === "asc" ? (
+							<FaArrowUp />
+						) : (
+							<FaArrowDown />
+						)}
 					</Button>
 				</Tooltip>
 			</GridItem>
