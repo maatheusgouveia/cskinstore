@@ -37,6 +37,7 @@ describe('ItemsController', () => {
       priceMin: null,
       priceMax: null,
       category: null,
+      orderBy: null, // Adiciona o orderBy nos filtros
     };
 
     const mockResponse = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
@@ -49,6 +50,7 @@ describe('ItemsController', () => {
       null,
       null,
       null,
+      null, // Passa o valor do orderBy como null
     );
 
     expect(service.getAllItems).toHaveBeenCalledWith(filters);
@@ -63,6 +65,7 @@ describe('ItemsController', () => {
       priceMin: null,
       priceMax: null,
       category: null,
+      orderBy: null, // Adiciona o orderBy nos filtros
     };
 
     const mockResponse = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
@@ -75,6 +78,7 @@ describe('ItemsController', () => {
       null,
       null,
       null,
+      null, // Passa o valor do orderBy como null
     );
 
     expect(service.getAllItems).toHaveBeenCalledWith(filters);
@@ -89,6 +93,7 @@ describe('ItemsController', () => {
       priceMin: '100',
       priceMax: '200',
       category: null,
+      orderBy: null, // Adiciona o orderBy nos filtros
     };
 
     const mockResponse = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
@@ -101,6 +106,7 @@ describe('ItemsController', () => {
       '100',
       '200',
       null,
+      null, // Passa o valor do orderBy como null
     );
 
     expect(service.getAllItems).toHaveBeenCalledWith(filters);
@@ -115,6 +121,7 @@ describe('ItemsController', () => {
       priceMin: '100',
       priceMax: '200',
       category: 'Rifle',
+      orderBy: 'asc',
     };
 
     const mockResponse = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
@@ -127,6 +134,7 @@ describe('ItemsController', () => {
       '100',
       '200',
       'Rifle',
+      'asc',
     );
 
     expect(service.getAllItems).toHaveBeenCalledWith(filters);

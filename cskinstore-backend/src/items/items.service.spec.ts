@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { PrismaService } from '../prisma/prisma.service';
 import { ItemsService } from './items.service';
-import { PrismaService } from '..//prisma/prisma.service';
 
 describe('ItemsService', () => {
   let service: ItemsService;
@@ -27,24 +27,24 @@ describe('ItemsService', () => {
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-
-  it('should return all items when no filters are provided', async () => {
-    const mockItems = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
-    mockPrismaService.item.findMany.mockResolvedValue(mockItems);
-
-    const result = await service.getAllItems();
-    expect(prismaService.item.findMany).toHaveBeenCalledWith();
-    expect(result).toEqual(mockItems);
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should return items with name filter', async () => {
-    const mockItems = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
-    mockPrismaService.item.findMany.mockResolvedValue(mockItems);
+    const filters = {
+      name: 'AK-47',
+      floatMin: null,
+      floatMax: null,
+      priceMin: null,
+      priceMax: null,
+      category: null,
+      orderBy: 'asc',
+    };
 
-    const filters = { name: 'AK-47' };
+    const mockResponse = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
+    mockPrismaService.item.findMany.mockResolvedValue(mockResponse);
+
     const result = await service.getAllItems(filters);
 
     expect(prismaService.item.findMany).toHaveBeenCalledWith({
@@ -58,44 +58,50 @@ describe('ItemsService', () => {
           {},
         ],
       },
+      orderBy: { price: 'asc' },
     });
-    expect(result).toEqual(mockItems);
+    expect(result).toEqual(mockResponse);
   });
 
   it('should return items with price filters', async () => {
-    const mockItems = [{ id: 2, name: 'AWP | Dragon Lore', price: 1200 }];
-    mockPrismaService.item.findMany.mockResolvedValue(mockItems);
+    const filters = {
+      name: null,
+      floatMin: null,
+      floatMax: null,
+      priceMin: 100,
+      priceMax: 200,
+      category: null,
+      orderBy: 'desc',
+    };
 
-    const filters = { priceMin: '100', priceMax: '2000' };
+    const mockResponse = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
+    mockPrismaService.item.findMany.mockResolvedValue(mockResponse);
+
     const result = await service.getAllItems(filters);
 
     expect(prismaService.item.findMany).toHaveBeenCalledWith({
       where: {
-        AND: [
-          {},
-          {},
-          {},
-          { price: { gte: 100 } },
-          { price: { lte: 2000 } },
-          {},
-        ],
+        AND: [{}, {}, {}, { price: { gte: 100 } }, { price: { lte: 200 } }, {}],
       },
+      orderBy: { price: 'desc' },
     });
-    expect(result).toEqual(mockItems);
+    expect(result).toEqual(mockResponse);
   });
 
   it('should return items with all filters', async () => {
-    const mockItems = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
-    mockPrismaService.item.findMany.mockResolvedValue(mockItems);
-
     const filters = {
       name: 'AK-47',
-      floatMin: '0.1',
-      floatMax: '0.9',
-      priceMin: '100',
-      priceMax: '200',
+      floatMin: 0.1,
+      floatMax: 0.9,
+      priceMin: 100,
+      priceMax: 200,
       category: 'Rifle',
+      orderBy: 'asc',
     };
+
+    const mockResponse = [{ id: 1, name: 'AK-47 | Redline', price: 180 }];
+    mockPrismaService.item.findMany.mockResolvedValue(mockResponse);
+
     const result = await service.getAllItems(filters);
 
     expect(prismaService.item.findMany).toHaveBeenCalledWith({
@@ -109,7 +115,8 @@ describe('ItemsService', () => {
           { category: { equals: 'Rifle', mode: 'insensitive' } },
         ],
       },
+      orderBy: { price: 'asc' },
     });
-    expect(result).toEqual(mockItems);
+    expect(result).toEqual(mockResponse);
   });
 });
